@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="container mt-5 p-4 text-center">
+        <h1>Profil Walikelas 10 C</h1>
+        <a href="{% url 'home' %}" class="btn btn-danger m-1">&lt; Back</a>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            {% if object_list %}
+                <div class="d-flex flex-wrap justify-content-around align-items-start">
+                    {% for data in object_list %}
+                        <div class="card border-primary m-2" style="width: 19rem; height: 100%;">
+                            <div class="card-header p-0 text-bg-primary">
+                                <img src="{{data.foto.url}}" class="card-img-top" alt="Logo data"">
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ data.nama_guru }}</h5>
+                                {% if data.niy %}
+                                    <h6 class="card-subtitle mb-2">NIY: {{ data.niy}}</h6>
+                                {% endif %}
+                                <p class="p-0 m-0">Jabatan: {{ data.jabatan }}</p>
+                                <p class="card-text p-0 m-0">Nomor HP : {{ data.no_hp }}</p>
+                                <p class="card-text p-0 m-0">Email : {{ data.email }}</p>
+                                <p class="card-text p-0 m-0">Pendidikan : {{ data.pendidikan }}</p>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+
+{% endblock %}

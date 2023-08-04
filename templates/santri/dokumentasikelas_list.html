@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="container mt-5 p-4 text-center">
+        <h1>Dokumentasi Kelas 10C</h1>
+        <a href="{% url 'home' %}" class="btn btn-danger m-1">&lt; Back</a>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center">
+            {% if object_list %}
+                <div class="d-flex flex-wrap justify-content-around align-items-start">
+                    {% for data in object_list %}
+                        <div class="card border-primary m-2" style="width: 18rem; height: 100%;">
+                            <div class="card-header p-0 text-bg-primary">
+                                {% if data.foto %}
+                                    <img src="{{data.foto.url}}" class="card-img-top" alt="Logo data">
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title text-primary">{{ data.nama_santri }}</h5>
+                                <h6 class="card-subtitle mb-2">NIS: {{ data.nis }}</h6>
+                                <p class="p-0 m-0">Tempat Lahir: {{ data.tempat_lahir }}</p>
+                                <p class="p-0 m-0">Tanggal Lahir: {{ data.tanggal_lahir }}</p>
+                                <p class="p-0 m-0">Alamat: {{ data.alamat }}</p>
+                            </div>
+                            <div class="card-footer border-primary text-center">
+                                <a href="{% url 'santri-detail' data.id %}" class="btn btn-danger m-1">Detail</a>
+                            </div>
+                        </div>
+
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="pagination container justify-content-center my-3">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1" class="btn btn-sm btn-outline-primary">&laquo; First</a>
+            <a href="?page={{ page_obj.previous_page_number }}" class="btn btn-sm btn-outline-primary">Previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="btn btn-sm btn-outline-primary">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}" class="btn btn-sm btn-outline-primary">Last &raquo;</a>
+        {% endif %}
+    </span>
+    </div>
+
+
+{% endblock %}
